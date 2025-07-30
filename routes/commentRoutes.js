@@ -1,6 +1,6 @@
 import express from 'express';
 import { protect } from '../middleware/auth.js'; // Adjust if path differs
-import Project from '../models/project.js';
+import Project from '../models/Project.js';
 
 const router = express.Router();
 
