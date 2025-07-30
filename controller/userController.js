@@ -80,9 +80,8 @@ export const LoginUser = async (req, res) => {
 
 export const verifyUser = async (request, response, next) => {
     try {
-        const { token } = request.query;
+        const { token } = request.body;
 
-        // ✅ Mongoose version (no `where`)
         const user = await User.findOne({ verificationToken: token });
 
         if (!user) {
@@ -99,7 +98,7 @@ export const verifyUser = async (request, response, next) => {
 
         await user.save();
 
-        response.status(200).json({ message: "Account verified successfully!" });
+        response.status(200).json({status:true, message: "Account verified successfully!" });
     } catch (err) {
         response.status(500).json({ error: err.message });
     }

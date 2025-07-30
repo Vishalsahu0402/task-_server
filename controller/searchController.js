@@ -1,24 +1,27 @@
 import project from '../models/project.js';
 import User from '../models/User.js';
 
-export const searchUsersAndProjects = async (req, res) => {
+
+export const searchUsersOrProjects = async (req, res) => {
+  const query = req.query.q?.trim();
+
+  if (!query) {
+    return res.status(400).json({ error: "Search query (q) is required" });
+  }
+
   try {
-    const { query } = req.query;
+    
+    const users = await User.find({
+      username: { $regex: query, $options: 'i' }
+    }).select('-password');
 
-    if (!query) {
-      return res.status(400).json({ error: 'Search query is required' });
-    }
+    const projects = await project.find({
+      title: { $regex: query, $options: 'i' }
+    }).populate('user', 'name email');
 
-    const regex = new RegExp(query, 'i'); // case-insensitive partial match
-
-    // 🔍 Find users by username
-    const users = await User.find({ username: regex }).select('username email role');
-
-    // 🔍 Find projects by title
-    const projects = await project.find({ title: regex }).populate('user', 'username');
-
-    res.json({ users, projects });
+    return res.status(200).json({ users, projects });
   } catch (err) {
-    res.status(500).json({ error: err.message });
+    console.error(err);
+    res.status(500).json({ error: 'Search failed' });
   }
 };

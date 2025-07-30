@@ -1,8 +1,8 @@
 import express from 'express';
-import { searchUsersAndProjects } from '../controller/searchController.js';
+import { searchUsersOrProjects } from '../controller/searchController.js';
 
 const router = express.Router();
 
-router.get('/', searchUsersAndProjects); // GET /api/search?query=something
+router.get('/', searchUsersOrProjects); // GET /api/search?q=query
 
 export default router;
