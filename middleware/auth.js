@@ -19,3 +19,4 @@ export const protect = async (req, res, next) => {
     return res.status(401).json({ error: 'Not authorized' });
   }
 };
+
