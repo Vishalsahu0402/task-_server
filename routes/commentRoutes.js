@@ -5,7 +5,7 @@ import Project from '../models/project.js';
 const router = express.Router();
 
 // POST /api/projects/:id/comments
-router.post('/:id/comments', prtect, async (req, res) => {
+router.post('/:id/comments', protect, async (req, res) => {
     try {
         const project = await Project.findById(req.params.id);
         if (!project) return res.status(404).json({ error: 'Project not found' });
