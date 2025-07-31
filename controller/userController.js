@@ -80,7 +80,7 @@ export const LoginUser = async (req, res) => {
 
 export const verifyUser = async (request, response, next) => {
     try {
-        const { token } = request.body;
+        const { token } = request.query;
 
         const user = await User.findOne({ verificationToken: token });
 
