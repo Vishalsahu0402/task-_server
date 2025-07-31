@@ -13,7 +13,7 @@ const transporter = nodemailer.createTransport({
 });
 
  export  const sendVerificationEmail = async (email, token) => {
-  const verificationUrl = `http://${PORT}/api/user/verify?token=${token}`;
+  const verificationUrl = `https://task-server-4x4g.onrender.com/api/user/verify?token=${token}`;
 
   await transporter.sendMail({
     from: 'vishalsahu1230@gmail.com',
@@ -26,7 +26,7 @@ const transporter = nodemailer.createTransport({
 
 
 export const sendResetPasswordEmail = async (email, token) => {
-  const resetUrl = `http://localhost:30001/user/reset-password?token=${token}`;
+  const resetUrl = `https://task-server-4x4g.onrender.com/user/reset-password?token=${token}`;
 
   await transporter.sendMail({
     from: 'vishalsahu1230@gmail.com',
